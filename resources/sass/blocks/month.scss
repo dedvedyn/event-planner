@@ -1,0 +1,78 @@
+.month {
+    padding: 0 6px;
+    min-width: 360px;
+    width: 33%;
+    height: 376px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+
+    &__title {
+        font-size: $font-size-32;
+        line-height: $font-size-32;
+        margin-bottom: 24px;
+    }
+
+    &__days {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+
+        &--day {
+            padding: 0 11px;
+            color: $dark-grey;
+            font-weight: $font-weight-300;
+            font-size: $font-size-16;
+            line-height: $font-size-32;
+        }
+    }
+
+    &__dates {
+
+    }
+
+    &__week {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+
+        &--day {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            width: 51px;
+            height: 40px;
+
+            &--number {
+                font-size: $font-size-16;
+                font-weight: $font-weight-300;
+                line-height: $font-size-40;
+            }
+
+            &--disabled {
+                color: $dark-grey;
+            }
+
+            &--events {
+                display: flex;
+                justify-content: center;
+                position: absolute;
+                bottom: -6px;
+            }
+
+            &--event {
+                width: 6px;
+                height: 6px;
+                border-radius: 3px;
+            }
+
+            &--event:not(:last-child) {
+                margin-right: 2px;
+            }
+        }
+    }
+}
+
+.month:not(:nth-child(3n)) {
+    border-right: 1px solid $transparent-red;
+}

@@ -1,0 +1,138 @@
+.popup {
+    z-index: 2;
+    position: absolute;
+    width: 360px;
+    background: $black;
+    padding: 24px;
+    max-height: 750px;
+    box-shadow: 0 4px 16px 0 $dark-shadow;
+
+    // scroll customize
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: $transparent-red;
+        border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: $main-red;
+        border-radius: 3px;
+    }
+
+    &__header {
+        padding-bottom: 24px;
+        border-bottom: 1px solid $transparent-red;
+    }
+
+    &__title {
+        font-size: $font-size-32;
+        line-height: $font-size-32;
+    }
+
+    &__close {
+        cursor: pointer;
+    }
+
+    &__events-list {
+        overflow-y: auto;
+        max-height: 500px;
+    }
+
+    &__event {
+        padding: 24px 0;
+
+        &--title {
+            font-size: $font-size-20;
+            font-weight: $font-weight-500;
+            line-height: $font-size-28;
+        }
+
+        &--edit {
+            cursor: pointer;
+
+            img {
+                height: 18px;
+            }
+        }
+
+        &--description {
+            font-size: $font-size-14;
+            line-height: $font-size-20;
+            margin-top: 8px;
+        }
+
+        &--location {
+            font-size: $font-size-16;
+            font-weight: $font-weight-400;
+            line-height: $font-size-20;
+            color: $dark-grey;
+            margin-top: 8px;
+        }
+
+        &--time {
+            font-size: $font-size-16;
+            font-weight: $font-weight-300;
+            line-height: $font-size-20;
+            color: $main-red;
+            margin-top: 8px;
+        }
+
+        &--type {
+            font-size: $font-size-14;
+            font-weight: $font-weight-400;
+            line-height: $font-size-14;
+
+            height: 22px;
+            border-radius: 11px;
+            padding: 4px 8px;
+            margin-top: 8px;
+        }
+
+        &--metexp {
+            color: $main-red;
+            background-color: $transparent-red;
+        }
+
+        &--qa {
+            color: $main-green;
+            background-color: $transparent-green;
+        }
+
+        &--conf {
+            color: $main-yellow;
+            background-color: $transparent-yellow;
+        }
+
+        &--web {
+            color: $main-blue;
+            background-color: $transparent-blue;
+        }
+    }
+
+    &__event:not(:last-child) {
+        border-bottom: 1px solid $transparent-red;
+    }
+
+    &__add {
+        border-top: 1px solid $transparent-red;
+        padding-top: 24px;
+        display: flex;
+        justify-content: right;
+    }
+
+    &__button {
+        padding: 8px 16px;
+        background: $main-red;
+        font-size: $font-size-20;
+        font-weight: $font-weight-500;
+        line-height: $font-size-24;
+        color: $black;
+        cursor: pointer;
+    }
+
+    &__flex {
+        display: flex;
+        justify-content: space-between;
+    }
+}

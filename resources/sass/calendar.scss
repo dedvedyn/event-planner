@@ -1,0 +1,9 @@
+.calendar {
+
+    &__months {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        border-top: 1px solid $transparent-red;
+    }
+}

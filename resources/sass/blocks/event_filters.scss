@@ -1,0 +1,45 @@
+.event-filters {
+    display: flex;
+    margin-bottom: 40px;
+
+    &__filter {
+        cursor: pointer;
+        font-size: $font-size-16;
+        font-weight: $font-weight-400;
+        line-height: $font-size-20;
+
+        height: 28px;
+        border-radius: 14px;
+        padding: 4px 16px 4px 16px;
+
+        &--metexp {
+            color: $main-red;
+            background-color: $transparent-red;
+        }
+
+        &--qa {
+            color: $main-green;
+            background-color: $transparent-green;
+        }
+
+        &--conf {
+            color: $main-yellow;
+            background-color: $transparent-yellow;
+        }
+
+        &--web {
+            color: $main-blue;
+            background-color: $transparent-blue;
+        }
+
+
+    }
+
+    &__filter:not(:last-child) {
+        margin-right: 24px;
+    }
+
+    &__active {
+        color: $black;
+    }
+}

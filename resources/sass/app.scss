@@ -1,0 +1,18 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Components
+@import 'main';
+@import 'header';
+@import 'footer';
+@import 'popup';
+@import 'modal';
+@import 'calendar';
+@import './blocks/month';
+@import './blocks/event_filters';

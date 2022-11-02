@@ -1,0 +1,41 @@
+.header {
+    display: flex;
+    height: 68px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    border-bottom: 1px solid $transparent-red;
+
+    &__left-side {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__right-side {
+        height: 100%;
+    }
+
+    &__logo {
+        font-size: $font-size-24;
+        font-weight: $font-weight-400;
+        line-height: $font-size-24;
+        color: $main-red;
+    }
+
+    &__menu {
+        display: flex;
+        height: 100%;
+
+        &--item {
+            display: flex;
+            align-items: center;
+            margin-left: 80px;
+            height: 100%;
+        }
+
+        &--active {
+            border-bottom: 1px solid $main-red;
+        }
+    }
+}

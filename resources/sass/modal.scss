@@ -1,0 +1,129 @@
+.window-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    background: rgba(255, 250, 251, 0.2);
+
+    // scroll customize
+    ::-webkit-scrollbar {
+        width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+        background: $transparent-red;
+        border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: $main-red;
+        border-radius: 3px;
+    }
+
+    &__container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+
+        width: 552px;
+        min-height: 520px;
+        padding: 24px;
+        background-color: $black;
+        box-shadow: 0 4px 16px 0 $dark-shadow;
+
+        input, textarea {
+            height: 40px;
+            width: 100%;
+            padding: 10px 12px 10px 12px;
+            margin-top: 24px;
+            background-color: rgba(255, 250, 251, 0.04);
+            border-radius: 0;
+
+            font-size: $font-size-16;
+            font-weight: $font-weight-300;
+            line-height: $font-size-20;
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+            vertical-align: top;
+        }
+
+        select {
+            height: 40px;
+            padding: 10px 12px;
+            background-color: rgba(255, 250, 251, 0.04);
+
+            font-size: $font-size-16;
+            font-weight: $font-weight-300;
+            line-height: $font-size-20;
+        }
+    }
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 24px;
+        border-bottom: 1px solid $transparent-red;
+
+        &--name {
+            font-size: $font-size-24;
+            line-height: $font-size-24;
+        }
+    }
+
+    &__close {
+        cursor: pointer;
+    }
+
+    &__body {
+        //
+    }
+
+    &__date {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 24px;
+    }
+
+    &__day {
+        font-size: $font-size-20;
+        font-weight: $font-weight-400;
+        line-height: $font-size-28;
+    }
+
+    &__time {
+        width: 80%;
+    }
+
+    &__type {
+        width: 100%;
+        margin-top: 24px;
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: right;
+        align-items: center;
+        font-size: $font-size-20;
+        font-weight: $font-weight-500;
+        line-height: $font-size-24;
+        margin-top: 24px;
+
+        &--cancel {
+            color: $main-red;
+        }
+
+        &--add {
+            background-color: $main-red;
+            color: $black;
+            padding: 8px 16px;
+            margin-left: 24px
+        }
+    }
+}
