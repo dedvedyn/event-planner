@@ -88,6 +88,7 @@ export default {
         }),
         closeModal() {
             this.$emit('hideCreateModal');
+            this.clearValues();
         },
         createNewEvent() {
             this.updateEventTimeBeforeSave();
@@ -97,7 +98,6 @@ export default {
                     if (data.success) {
                         this.getEvents(this.datesFromTo);
                         this.closeModal();
-                        this.clearValues();
                     } else {
                         console.log('Can`t save event')
                     }

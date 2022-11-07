@@ -107,6 +107,7 @@ export default {
         }),
         closeModal() {
             this.$emit('hideEditModal');
+            this.clearValues();
         },
         deleteEvent() {
             axios.post('/events/delete/', {id: this.editedEvent.id})
@@ -142,6 +143,18 @@ export default {
             const hourMinuteArray = this.editedEvent.hourMinute.split(':');
             this.editedEvent.time.setHours(+hourMinuteArray[0]);
             this.editedEvent.time.setMinutes(+hourMinuteArray[1]);
+        },
+        clearValues() {
+            this.$set(this, 'event',
+                {
+                    name: '',
+                    description: '',
+                    location: '',
+                    time: '',
+                    hourMinute: '',
+                    type: '',
+                }
+            )
         }
     }
 }

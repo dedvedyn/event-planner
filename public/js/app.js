@@ -5601,6 +5601,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     closeModal: function closeModal() {
       this.$emit('hideCreateModal');
+      this.clearValues();
     },
     createNewEvent: function createNewEvent() {
       var _this = this;
@@ -5610,7 +5611,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (data.success) {
           _this.getEvents(_this.datesFromTo);
           _this.closeModal();
-          _this.clearValues();
         } else {
           console.log('Can`t save event');
         }
@@ -5764,6 +5764,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   })), {}, {
     closeModal: function closeModal() {
       this.$emit('hideEditModal');
+      this.clearValues();
     },
     deleteEvent: function deleteEvent() {
       var _this = this;
@@ -5800,6 +5801,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var hourMinuteArray = this.editedEvent.hourMinute.split(':');
       this.editedEvent.time.setHours(+hourMinuteArray[0]);
       this.editedEvent.time.setMinutes(+hourMinuteArray[1]);
+    },
+    clearValues: function clearValues() {
+      this.$set(this, 'event', {
+        name: '',
+        description: '',
+        location: '',
+        time: '',
+        hourMinute: '',
+        type: ''
+      });
     }
   })
 });
