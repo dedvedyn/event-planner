@@ -14,7 +14,7 @@
 
 <script>
 import {EventTypesMappingMixin} from '../../mixins/event_types_mapping';
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
     name: "EventFilters",
@@ -27,6 +27,20 @@ export default {
     },
     mounted() {
         this.$set(this, 'filters', this.eventTypes);
+    },
+    computed: {
+        ...mapGetters({
+            events: 'events'
+        }),
+    },
+    watch: {
+        events: {
+            deep: true,
+            immediate: false,
+            handler() {
+                this.changeEventsVisibility(this.filterValues);
+            }
+        }
     },
     methods: {
         ...mapActions({

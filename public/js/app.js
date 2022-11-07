@@ -6080,6 +6080,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.$set(this, 'filters', this.eventTypes);
   },
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapGetters)({
+    events: 'events'
+  })),
+  watch: {
+    events: {
+      deep: true,
+      immediate: false,
+      handler: function handler() {
+        this.changeEventsVisibility(this.filterValues);
+      }
+    }
+  },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapActions)({
     changeEventsVisibility: 'changeEventsVisibility'
   })), {}, {
