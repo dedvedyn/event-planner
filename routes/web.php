@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,10 @@ Route::get('/', function () {
 Route::get('{any}', function () {
     return view('layout.index');
 })->where('any', '.*');
+
+Route::prefix('events')->group(function () {
+    Route::post('/getAll', [EventController::class, 'getEvents']);
+    Route::post('/add',    [EventController::class, 'setEvent']);
+    Route::post('/edit',   [EventController::class, 'editEvent']);
+    Route::post('/delete', [EventController::class, 'deleteEvent']);
+});

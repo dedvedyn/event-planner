@@ -3,31 +3,41 @@
         <div class="window-modal__container">
             <div class="window-modal__header">
                 <div class="window-modal__header--name">
-                    Add event
+                    Edit event
                 </div>
                 <div class="window-modal__close" @click="closeModal">
                     <img src="/images/close_icon.png">
                 </div>
             </div>
             <div class="window-modal__body">
-                <input type="text" name="name" placeholder="Event name..." v-model="event.name">
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Event name..."
+                    v-model="editedEvent.name"
+                >
                 <textarea
                     name="description"
                     placeholder="Event description..."
-                    v-model="event.description"
+                    v-model="editedEvent.description"
                 ></textarea>
-                <input type="text" name="location" placeholder="Event location..." v-model="event.location">
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Event location..."
+                    v-model="editedEvent.location"
+                >
                 <div class="window-modal__date">
                     <div class="window-modal__day">
                         {{ dateDay }} at
                     </div>
-                    <select v-model="event.hourMinute" class="window-modal__time">
+                    <select v-model="editedEvent.hourMinute" class="window-modal__time">
                         <option v-for="hour in dayHours" :value="hour.time">
                             {{ hour.time }}
                         </option>
                     </select>
                 </div>
-                <select v-model="event.type" class="window-modal__type">
+                <select v-model="editedEvent.type" class="window-modal__type">
                     <option v-for="(eventType, key) in eventTypes" :value="key">
                         {{ eventType.name }}
                     </option>
@@ -37,8 +47,11 @@
                 <div class="window-modal__footer--cancel" @click="closeModal">
                     Cancel
                 </div>
-                <div class="window-modal__footer--add" @click="createNewEvent">
-                    Add
+                <div class="window-modal__footer--delete" @click="deleteEvent">
+                    Delete
+                </div>
+                <div class="window-modal__footer--add" @click="saveEvent">
+                    Save
                 </div>
             </div>
         </div>
@@ -51,23 +64,18 @@ import {DayHoursMixin} from '../../mixins/day_hours';
 import {mapActions, mapGetters} from "vuex";
 
 export default {
-    name: "CreateModal",
+    name: "EditModal",
     props: {
-        dateString: {
-            type: String,
+        event: {
+            type: Object,
             required: true
-        },
+        }
     },
     mixins: [EventTypesMappingMixin, DayHoursMixin],
     data() {
         return {
-            event: {
-                name: '',
-                description: '',
-                location: '',
-                time: '',
-                hourMinute: '',
-                type: '',
+            editedEvent: {
+                time: new Date()
             }
         }
     },
@@ -76,28 +84,52 @@ export default {
             datesFromTo: 'datesFromTo'
         }),
         dateDay() {
-            const date = new Date(this.dateString);
-            const dayOfMonth = date.getDate();
-            const shortMonth = date.toLocaleString('en-US', { month: 'short' });
+            const dayOfMonth = this.editedEvent.time.getDate();
+            const shortMonth = this.editedEvent.time.toLocaleString('en-US', { month: 'short' });
             return dayOfMonth + ' ' + shortMonth + ' ';
         }
+    },
+    watch: {
+        event: {
+            deep: true,
+            immediate: false,
+            handler(value) {
+                let eventToSet = structuredClone(value);
+                const toTimeString = eventToSet.time.toTimeString().split(':');
+                eventToSet.hourMinute = toTimeString[0] + ':' + toTimeString[1];
+                this.$set(this, 'editedEvent', eventToSet);
+            }
+        },
     },
     methods: {
         ...mapActions({
             getEvents: 'getEvents'
         }),
         closeModal() {
-            this.$emit('hideCreateModal');
+            this.$emit('hideEditModal');
         },
-        createNewEvent() {
-            this.updateEventTimeBeforeSave();
-
-            axios.post('/events/add/', this.event)
+        deleteEvent() {
+            axios.post('/events/delete/', {id: this.editedEvent.id})
                 .then(({data}) => {
                     if (data.success) {
                         this.getEvents(this.datesFromTo);
                         this.closeModal();
-                        this.clearValues();
+                    } else {
+                        console.log('Can`t delete event')
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        saveEvent() {
+            this.updateEventTimeBeforeSave();
+
+            axios.post('/events/edit/', this.editedEvent)
+                .then(({data}) => {
+                    if (data.success) {
+                        this.getEvents(this.datesFromTo);
+                        this.closeModal();
                     } else {
                         console.log('Can`t save event')
                     }
@@ -107,22 +139,9 @@ export default {
                 });
         },
         updateEventTimeBeforeSave() {
-            this.$set(this.event, 'time', new Date(this.dateString));
-            const hourMinuteArray = this.event.hourMinute.split(':');
-            this.event.time.setHours(+hourMinuteArray[0]);
-            this.event.time.setMinutes(+hourMinuteArray[1]);
-        },
-        clearValues() {
-            this.$set(this, 'event',
-                {
-                    name: '',
-                    description: '',
-                    location: '',
-                    time: '',
-                    hourMinute: '',
-                    type: '',
-                }
-            )
+            const hourMinuteArray = this.editedEvent.hourMinute.split(':');
+            this.editedEvent.time.setHours(+hourMinuteArray[0]);
+            this.editedEvent.time.setMinutes(+hourMinuteArray[1]);
         }
     }
 }

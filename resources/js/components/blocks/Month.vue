@@ -14,15 +14,16 @@
                     <div
                         class="month__week--day--number"
                         :class="{ 'month__week--day--disabled': !day.isCurrentMonth }"
-                        @click="selectDay(day.isCurrentMonth, $event)"
+                        @click="selectDay(day.isCurrentMonth, currentDayEvents(day), $event)"
                     >
                         {{ day.date }}
                     </div>
                     <div class="month__week--day--events">
-<!--                        <div class="month__week&#45;&#45;day&#45;&#45;event" style="background-color: #4DB4FF;"></div>-->
-<!--                        <div class="month__week&#45;&#45;day&#45;&#45;event" style="background-color: #FF4E6B;"></div>-->
-<!--                        <div class="month__week&#45;&#45;day&#45;&#45;event" style="background-color: #00CC66;"></div>-->
-<!--                        <div class="month__week&#45;&#45;day&#45;&#45;event" style="background-color: #FFBB33;"></div>-->
+                        <div
+                            v-for="currentDayEventType in currentDayEventTypes(day)"
+                            class="month__week--day--event"
+                            :style="setDayEventsStyles(currentDayEventType)"
+                        ></div>
                     </div>
                 </div>
             </div>
@@ -32,6 +33,7 @@
 
 <script>
 import {WeekDaysMixin} from '../../mixins/week_days';
+import {EventTypesMappingMixin} from '../../mixins/event_types_mapping';
 
 export default {
     name: "Month",
@@ -47,9 +49,13 @@ export default {
         year: {
             type: Number,
             required: true
+        },
+        monthEvents: {
+            type: Array,
+            default: function() {return []}
         }
     },
-    mixins: [WeekDaysMixin],
+    mixins: [WeekDaysMixin, EventTypesMappingMixin],
     data() {
         return {
             monthTitle: '',
@@ -130,15 +136,40 @@ export default {
                 date.toLocaleString('en-US', {month: 'long'})
             );
         },
-        selectDay(isCurrentMonth, event) {
+        selectDay(isCurrentMonth, currentDayEvents, event) {
             if (isCurrentMonth) {
                 const maxX = document.documentElement.clientWidth - 375;
                 const maxY = document.documentElement.scrollHeight - 685;
                 const positionX = event.pageX < maxX ? event.pageX : maxX;
                 const positionY = event.pageY < maxY ? event.pageY : maxY;
                 const selectedDate = [this.year, this.monthId + 1, event.path[0].innerText].join('-');
-                this.$emit('show-events', [positionX + 15, positionY + 15], selectedDate);
+                this.$emit('showEvents', [positionX + 15, positionY + 15], selectedDate, currentDayEvents);
             }
+        },
+        currentDayEvents(day) {
+            return this.monthEvents.filter(function(event) {
+                if (
+                    day.isCurrentMonth &&
+                    day.date === event.time.getDate() &&
+                    event.toShow
+                ) {
+                    return event;
+                }
+            });
+        },
+        currentDayEventTypes(day) {
+            let eventTypes = [];
+            const dayEvents = this.currentDayEvents(day);
+            for (let i = 0; i < dayEvents.length; i++) {
+                if (eventTypes.indexOf(dayEvents[i].type) === -1) {
+                    eventTypes.push(dayEvents[i].type);
+                }
+            }
+            return eventTypes;
+        },
+        setDayEventsStyles(currentDayEventType) {
+            const background = this.eventTypes[currentDayEventType].color;
+            return 'background-color:' + background + ';';
         }
     }
 }

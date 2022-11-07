@@ -55,7 +55,7 @@
         select {
             height: 40px;
             padding: 10px 12px;
-            background-color: rgba(255, 250, 251, 0.04);
+            background-color: #222222;
 
             font-size: $font-size-16;
             font-weight: $font-weight-300;
@@ -116,10 +116,20 @@
         margin-top: 24px;
 
         &--cancel {
+            cursor: pointer;
             color: $main-red;
         }
 
+        &--delete {
+            cursor: pointer;
+            background-color: $transparent-red;
+            color: $main-red;
+            padding: 8px 16px;
+            margin-left: 24px
+        }
+
         &--add {
+            cursor: pointer;
             background-color: $main-red;
             color: $black;
             padding: 8px 16px;

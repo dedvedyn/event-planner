@@ -20,6 +20,7 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 import router from "./router";
+import store from "./store";
 
 Vue.component('vue-header', require('./components/UI/Header.vue').default);
 Vue.component('vue-footer', require('./components/UI/Footer.vue').default);
@@ -32,5 +33,6 @@ Vue.component('vue-footer', require('./components/UI/Footer.vue').default);
 
 const app = new Vue({
     el: '#app',
-    router
+    router,
+    store
 });

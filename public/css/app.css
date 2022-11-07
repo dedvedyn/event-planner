@@ -11104,7 +11104,7 @@ body select {
 .window-modal__container select {
   height: 40px;
   padding: 10px 12px;
-  background-color: rgba(255, 250, 251, 0.04);
+  background-color: #222222;
   font-size: 16px;
   font-weight: 300;
   line-height: 20px;
@@ -11151,9 +11151,18 @@ body select {
   margin-top: 24px;
 }
 .window-modal__footer--cancel {
+  cursor: pointer;
   color: #FF4E6B;
 }
+.window-modal__footer--delete {
+  cursor: pointer;
+  background-color: rgba(255, 78, 107, 0.1607843137);
+  color: #FF4E6B;
+  padding: 8px 16px;
+  margin-left: 24px;
+}
 .window-modal__footer--add {
+  cursor: pointer;
   background-color: #FF4E6B;
   color: #131315;
   padding: 8px 16px;
@@ -11249,21 +11258,34 @@ body select {
   color: #FF4E6B;
   background-color: rgba(255, 78, 107, 0.1607843137);
 }
+.event-filters__filter--metexp--active {
+  color: #131315;
+  background-color: #FF4E6B;
+}
 .event-filters__filter--qa {
   color: #00CC66;
   background-color: rgba(0, 204, 102, 0.1607843137);
+}
+.event-filters__filter--qa--active {
+  color: #131315;
+  background-color: #00CC66;
 }
 .event-filters__filter--conf {
   color: #FFBB33;
   background-color: rgba(255, 187, 51, 0.1607843137);
 }
+.event-filters__filter--conf--active {
+  color: #131315;
+  background-color: #FFBB33;
+}
 .event-filters__filter--web {
   color: #4DB4FF;
   background-color: rgba(77, 180, 255, 0.1607843137);
 }
+.event-filters__filter--web--active {
+  color: #131315;
+  background-color: #4DB4FF;
+}
 .event-filters__filter:not(:last-child) {
   margin-right: 24px;
-}
-.event-filters__active {
-  color: #131315;
 }

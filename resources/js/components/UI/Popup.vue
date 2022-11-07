@@ -14,7 +14,7 @@
                     <div class="popup__event--title">
                         {{ event.name }}
                     </div>
-                    <div class="popup__event--edit">
+                    <div class="popup__event--edit" @click="editEvent(event)">
                         <img src="/images/edit_icon.png">
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 </div>
                 <div class="popup__flex">
                     <div class="popup__event--time">
-                        {{ event.time }}
+                        {{ eventTime(event) }}
                     </div>
                     <div class="popup__event--type" :class="'popup__event' + eventClass(event.type)">
                         {{ eventType(event.type) }}
@@ -48,34 +48,19 @@ import {EventTypesMappingMixin} from '../../mixins/event_types_mapping';
 export default {
     name: "Popup",
     props: {
-        dateString: {
-            type: String,
-            required: true
-        },
         positionXY: {
             type: Array,
             required: true
+        },
+        events: {
+            type: Array,
+            default: function () {return []}
         }
     },
     mixins: [EventTypesMappingMixin],
     data() {
         return {
-            events: [
-                {
-                    name: 'Test event',
-                    description: 'This event from Vue component. After Frontend development need to update DB and add ability to create real events.',
-                    type: 'QUESTION_ANSWER',
-                    location: 'Gulliver, Kyiv, Ukraine',
-                    time: '15 november, 18:00'
-                },
-                {
-                    name: 'Nothing But Thieves',
-                    description: 'The popular indie rock band Nothing But Thieves will come to Kyiv on October 29, 2022 with a big solo concert. The British have repeatedly given cool performances at the largest Ukrainian festivals, filmed music videos in Kyiv, and now they are preparing a special show for the most loyal fans!',
-                    type: 'MEETING_WITH_EXPERT',
-                    location: 'Gulliver, Kyiv, Ukraine',
-                    time: '10 december, 10:00'
-                }
-            ]
+            //
         }
     },
     computed: {
@@ -93,8 +78,17 @@ export default {
         addEvent() {
             this.$emit('addEvent');
         },
+        editEvent(eventData) {
+            this.$emit('editEvent', eventData);
+        },
         closePopup() {
-            this.$emit('hideEvents');
+            this.$emit('hidePopup');
+        },
+        eventTime(event) {
+            const dayOfMonth = event.time.getDate();
+            const shortMonth = event.time.toLocaleString('en-US', { month: 'long' });
+            const time = event.time.toTimeString().split(':');
+            return dayOfMonth + ' ' + shortMonth + ', ' + time[0] + ':' + time[1];
         }
     }
 }

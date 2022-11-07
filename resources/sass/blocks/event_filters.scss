@@ -15,31 +15,45 @@
         &--metexp {
             color: $main-red;
             background-color: $transparent-red;
+
+            &--active {
+                color: $black;
+                background-color: $main-red;
+            }
         }
 
         &--qa {
             color: $main-green;
             background-color: $transparent-green;
+
+            &--active {
+                color: $black;
+                background-color: $main-green;
+            }
         }
 
         &--conf {
             color: $main-yellow;
             background-color: $transparent-yellow;
+
+            &--active {
+                color: $black;
+                background-color: $main-yellow;
+            }
         }
 
         &--web {
             color: $main-blue;
             background-color: $transparent-blue;
+
+            &--active {
+                color: $black;
+                background-color: $main-blue;
+            }
         }
-
-
     }
 
     &__filter:not(:last-child) {
         margin-right: 24px;
-    }
-
-    &__active {
-        color: $black;
     }
 }
